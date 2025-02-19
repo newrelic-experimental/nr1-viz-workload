@@ -11,12 +11,22 @@ import {
 } from "nr1";
 
 import { EmptyState } from "./components/EmptyState";
+import { useProps } from "./context/VizPropsProvider";
 import { useWorkloadData } from "./hooks/useWorkloadData";
+import { useThresholdStyles } from "./hooks/useThresholdStyles";
 
-const App = ({ accountIdList, query, loading, stroke, fill }) => {
+const App = () => {
+  const { accountIdList, query, loading, warningThreshold, criticalThreshold } =
+    useProps();
+
   const { data, dates, isLoading, response } = useWorkloadData(
     accountIdList,
     query
+  );
+
+  const { getCellStyle } = useThresholdStyles(
+    warningThreshold,
+    criticalThreshold
   );
 
   const nrqlQueryPropsAvailable =
@@ -52,7 +62,10 @@ const App = ({ accountIdList, query, loading, stroke, fill }) => {
             {accountIdList.map((accountIdListElement) => {
               const entityData = data.get(accountIdListElement.entityGuid);
               return (
-                <TableRowCell key={accountIdListElement.entityGuid}>
+                <TableRowCell
+                  key={accountIdListElement.entityGuid}
+                  style={getCellStyle(entityData.get(item))}
+                >
                   {entityData.get(item)}
                 </TableRowCell>
               );

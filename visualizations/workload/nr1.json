@@ -1,46 +1,45 @@
 {
-    "schemaType": "VISUALIZATION",
-    "id": "workload",
-    "displayName": "Workload",
-    "description": "",
-    "configuration": [
+  "schemaType": "VISUALIZATION",
+  "id": "workload",
+  "displayName": "Workload",
+  "description": "",
+  "configuration": [
+    {
+      "name": "accountIdList",
+      "title": "Account Id",
+      "type": "collection",
+      "items": [
         {
-            "name": "accountIdList",
-            "title": "Account Id",
-            "type": "collection",
-            "items": [
-                {
-                    "name": "accountId",
-                    "title": "Account ID",
-                    "description": "Account ID associated with the entity",
-                    "type": "account-id"
-                },
-                {
-                    "name": "entityGuid",
-                    "title": "entityGuid",
-                    "description": "Entity Guid of entity",
-                    "type": "string"
-                }
-
-            ]
+          "name": "accountId",
+          "title": "Account ID",
+          "description": "Account ID associated with the entity",
+          "type": "account-id"
         },
         {
-            "name": "query",
-            "title": "Query",
-            "description": "NRQL query for visualization",
-            "type": "nrql"
-        },
-        {
-            "name": "fill",
-            "title": "Fill color",
-            "description": "A fill color to override the default fill color",
-            "type": "string"
-        },
-        {
-            "name": "stroke",
-            "title": "Stroke color",
-            "description": "A stroke color to override the default stroke color",
-            "type": "string"
+          "name": "entityGuid",
+          "title": "entityGuid",
+          "description": "Entity Guid of entity",
+          "type": "string"
         }
-    ]
+      ]
+    },
+    {
+      "name": "query",
+      "title": "Query",
+      "description": "NRQL query for visualization",
+      "type": "nrql"
+    },
+    {
+      "name": "warningThreshold",
+      "title": "Warning Threshold",
+      "description": "Warning threshold - cell becomes amber when below this value",
+      "type": "string"
+    },
+    {
+      "name": "criticalThreshold",
+      "title": "Critical Threshold",
+      "description": "Critical threshold - cell becomes red when below this value",
+      "type": "string"
+    }
+  ]
 }
