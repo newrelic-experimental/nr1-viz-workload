@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-const useThresholdStyles = (
+const useThresholdColour = (
   warningThreshold: string,
   criticalThreshold: string
 ) => {
@@ -12,22 +12,22 @@ const useThresholdStyles = (
   const filteredWarningThreshold = parseFloat(sanitize(warningThreshold));
   const filteredCriticalThreshold = parseFloat(sanitize(criticalThreshold));
 
-  const getCellStyle = useMemo(() => {
-    return (value: string | number) => {
+  const getThresholdColour = useMemo(() => {
+    return (value: string | number): string => {
       const numericValue = parseFloat(value as string);
 
       if (!isNaN(numericValue)) {
         if (numericValue < filteredCriticalThreshold) {
-          return { backgroundColor: "red", color: "white" }; // Critical breach
+          return "red"; // Critical breach
         } else if (numericValue < filteredWarningThreshold) {
-          return { backgroundColor: "orange", color: "black" }; // Warning breach
+          return "orange"; // Warning breach
         }
       }
-      return {};
+      return ""; // No breach
     };
   }, [filteredWarningThreshold, filteredCriticalThreshold]);
 
-  return { getCellStyle };
+  return { getThresholdColour };
 };
 
-export { useThresholdStyles };
+export { useThresholdColour };

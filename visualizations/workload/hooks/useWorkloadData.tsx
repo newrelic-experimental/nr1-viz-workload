@@ -1,16 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NrqlQuery } from "nr1";
 
-export const useWorkloadData = (accountIdList, query) => {
+export const useWorkloadData = (
+  accountIdList,
+  query,
+  refreshInterval = 10000
+) => {
   const [isLoading, setIsLoading] = useState(true);
   const [response, setResponse] = useState(undefined);
   const [data, setData] = useState(new Map());
   const [dates, setDates] = useState([]);
+  const intervalRef = useRef(null);
 
   const transformData = (response, entityGuid) => {
-    setData(() => {
-      const newData = new Map();
-      const newDates = new Set();
+    setData((prevData) => {
+      const newData = new Map(prevData);
+      const newDates = new Set(dates);
 
       response.data.forEach((dataElement) => {
         newDates.add(dataElement.metadata.name);
@@ -27,10 +32,6 @@ export const useWorkloadData = (accountIdList, query) => {
 
   const retrieveData = async () => {
     if (!accountIdList || !query) return;
-
-    setIsLoading(true);
-    setData(new Map());
-    setDates([]);
 
     try {
       for (const accountIdListElement of accountIdList) {
@@ -56,7 +57,21 @@ export const useWorkloadData = (accountIdList, query) => {
 
   useEffect(() => {
     retrieveData();
-  }, [accountIdList, query]);
+
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    intervalRef.current = setInterval(() => {
+      retrieveData();
+    }, refreshInterval);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [accountIdList, query, refreshInterval]);
 
   return { data, dates, isLoading, response };
 };
