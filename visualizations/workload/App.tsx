@@ -13,7 +13,7 @@ import {
 import { EmptyState } from "./components/EmptyState";
 import { useProps } from "./context/VizPropsProvider";
 import { useWorkloadData } from "./hooks/useWorkloadData";
-import { useThresholdStyles } from "./hooks/useThresholdStyles";
+import { useThresholdColour } from "./hooks/useThresholdColour";
 
 const App = () => {
   const { accountIdList, query, loading, warningThreshold, criticalThreshold } =
@@ -24,7 +24,7 @@ const App = () => {
     query
   );
 
-  const { getCellStyle } = useThresholdStyles(
+  const { getThresholdColour } = useThresholdColour(
     warningThreshold,
     criticalThreshold
   );
@@ -61,12 +61,22 @@ const App = () => {
             <TableRowCell>{item}</TableRowCell>
             {accountIdList.map((accountIdListElement) => {
               const entityData = data.get(accountIdListElement.entityGuid);
+              const value = entityData.get(item);
+              const color = getThresholdColour(value);
+
               return (
                 <TableRowCell
                   key={accountIdListElement.entityGuid}
-                  style={getCellStyle(entityData.get(item))}
+                  style={
+                    color
+                      ? {
+                          backgroundColor: color,
+                          color: color === "red" ? "white" : "black",
+                        }
+                      : {}
+                  }
                 >
-                  {entityData.get(item)}
+                  {value}
                 </TableRowCell>
               );
             })}
