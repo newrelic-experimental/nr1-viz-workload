@@ -4,7 +4,7 @@ import { NrqlQuery } from "nr1";
 export const useWorkloadData = (
   accountIdList,
   query,
-  refreshInterval = 10000
+  refreshInterval = 30000
 ) => {
   const [isLoading, setIsLoading] = useState(true);
   const [response, setResponse] = useState(undefined);
