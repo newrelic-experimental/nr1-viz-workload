@@ -36,7 +36,7 @@ export const useWorkloadData = (
     try {
       for (const accountIdListElement of accountIdList) {
         const entityGuid = accountIdListElement.entityGuid;
-        const newQuery = query; // `${query} WHERE entity.guid = '${entityGuid}'`;
+        const newQuery = `${query} WHERE entity.guid = '${entityGuid}'`;
 
         const response = await NrqlQuery.query({
           query: newQuery,
