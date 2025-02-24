@@ -17,11 +17,11 @@ export const useWorkloadData = (
       const newData = new Map(prevData);
       const newDates = new Set(dates);
 
-      response.data.forEach((dataElement) => {
-        newDates.add(dataElement.metadata.name);
+      response.data.forEach((data) => {
+        newDates.add(data.metadata.name);
 
         let valueMap = newData.get(entityGuid) || new Map();
-        valueMap.set(dataElement.metadata.name, dataElement.data[0].y);
+        valueMap.set(data.metadata.name, data.data[0].y);
         newData.set(entityGuid, valueMap);
       });
 

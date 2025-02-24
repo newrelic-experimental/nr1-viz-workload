@@ -20,6 +20,12 @@
           "title": "entityGuid",
           "description": "Entity Guid of entity",
           "type": "string"
+        },
+        {
+          "name": "entityName",
+          "title": "Entity Name",
+          "description": "Entity Name",
+          "type": "string"
         }
       ]
     },
