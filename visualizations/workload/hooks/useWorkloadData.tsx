@@ -8,15 +8,15 @@ export const useWorkloadData = (accountIdList, query) => {
   const [dates, setDates] = useState([]);
 
   const transformData = (response, entityGuid) => {
-    setData(() => {
-      const newData = new Map();
-      const newDates = new Set();
+    setData((prevData) => {
+      const newData = new Map(prevData);
+      const newDates = new Set(dates);
 
-      response.data.forEach((dataElement) => {
-        newDates.add(dataElement.metadata.name);
+      response.data.forEach((data) => {
+        newDates.add(data.metadata.name);
 
         let valueMap = newData.get(entityGuid) || new Map();
-        valueMap.set(dataElement.metadata.name, dataElement.data[0].y);
+        valueMap.set(data.metadata.name, data.data[0].y);
         newData.set(entityGuid, valueMap);
       });
 
@@ -35,7 +35,7 @@ export const useWorkloadData = (accountIdList, query) => {
     try {
       for (const accountIdListElement of accountIdList) {
         const entityGuid = accountIdListElement.entityGuid;
-        const newQuery = query; // `${query} WHERE entity.guid = '${entityGuid}'`;
+        const newQuery = `${query} WHERE entity.guid = '${entityGuid}'`;
 
         const response = await NrqlQuery.query({
           query: newQuery,
