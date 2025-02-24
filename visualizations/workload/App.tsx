@@ -52,7 +52,7 @@ const App = () => {
           <TableHeaderCell>Date</TableHeaderCell>
           {accountIdList.map((accountIdListElement) => (
             <TableHeaderCell key={accountIdListElement.entityGuid}>
-              {accountIdListElement.entityName ??
+              {accountIdListElement.entityName ||
                 accountIdListElement.entityGuid}
             </TableHeaderCell>
           ))}
@@ -70,7 +70,6 @@ const App = () => {
                   {entityData.get(item)}
                 </TableRowCell>
               );
-              console.log(data);
             })}
           </TableRow>
         )}
