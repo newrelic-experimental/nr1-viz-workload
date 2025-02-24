@@ -1,6 +1,6 @@
 # SLI Workload vizualization
 
-This vizualisation displays SLI data for the last X days for a given entity.
+This vizualisation displays SLI data for the last X days for a given entity. (with multiple entities support)
 
 <img width="1500" alt="Image" src="https://github.com/user-attachments/assets/08e11f9c-6423-4bc6-878b-fed0edd490ab" />
 
