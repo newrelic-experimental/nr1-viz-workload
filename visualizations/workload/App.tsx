@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { navigation } from "nr1";
 
 import {
   Table,
@@ -19,7 +20,7 @@ const App = () => {
   const { accountIdList, query, loading, warningThreshold, criticalThreshold } =
     useProps();
 
-  const { data, dates, isLoading, response } = useWorkloadData(
+  const { data, dates, isLoading, hasData } = useWorkloadData(
     accountIdList,
     query
   );
@@ -38,11 +39,15 @@ const App = () => {
     );
 
   if (!nrqlQueryPropsAvailable) {
-    return <EmptyState />;
+    return <EmptyState message="Invalid query parameters" />;
   }
 
-  if (loading || isLoading || response === undefined) {
+  if (loading || isLoading) {
     return <Spinner />;
+  }
+
+  if (!hasData) {
+    return <EmptyState message="No data available" />;
   }
 
   return (
@@ -52,8 +57,17 @@ const App = () => {
           <TableHeaderCell>Date</TableHeaderCell>
           {accountIdList.map((accountIdListElement) => (
             <TableHeaderCell key={accountIdListElement.entityGuid}>
-              {accountIdListElement.entityName ||
-                accountIdListElement.entityGuid}
+              <a
+                href="#"
+                onClick={(event) => {
+                  event.preventDefault();
+                  navigation.openEntity(accountIdListElement.entityGuid); // Open entity
+                }}
+                rel="noopener noreferrer"
+              >
+                {accountIdListElement.entityName ||
+                  accountIdListElement.entityGuid}
+              </a>
             </TableHeaderCell>
           ))}
         </TableHeader>
@@ -62,7 +76,7 @@ const App = () => {
             <TableRowCell>{item}</TableRowCell>
             {accountIdList.map((accountIdListElement) => {
               const entityData = data.get(accountIdListElement.entityGuid);
-              const value = entityData.get(item);
+              const value = entityData ? entityData.get(item) : null;
               const color = getThresholdColour(value);
 
               return (
@@ -71,13 +85,14 @@ const App = () => {
                   style={
                     color
                       ? {
-                          backgroundColor: color,
-                          color: color === "red" ? "white" : "black",
+                          color: color,
                         }
                       : {}
                   }
                 >
-                  {value}
+                  {!isNaN(Number(value)) && value !== null
+                    ? Math.round(Number(value) * 1000) / 1000
+                    : value ?? "—"}
                 </TableRowCell>
               );
             })}
