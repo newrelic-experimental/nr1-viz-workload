@@ -1,8 +1,10 @@
+<a href="https://opensource.newrelic.com/oss-category/#new-relic-experimental"><picture><source media="(prefers-color-scheme: dark)" srcset="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/dark/Experimental.png"><source media="(prefers-color-scheme: light)" srcset="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/Experimental.png"><img alt="New Relic Open Source experimental project banner." src="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/Experimental.png"></picture></a>
+
 # SLI Workload vizualization
 
 This vizualisation displays SLI data for the last X days for a given entity. (with multiple entities support)
 
-<img width="1461" alt="Image" src="https://github.com/user-attachments/assets/81b48548-a228-47b1-a008-a210efc951a2" />
+<img width="1500" alt="Image" src="https://github.com/user-attachments/assets/08e11f9c-6423-4bc6-878b-fed0edd490ab" />
 
 #### Configuration
 
@@ -45,3 +47,7 @@ Visit https://one.newrelic.com/?nerdpacks=local and :sparkles:
 ##### Building and publishing the visualisation
 
 Visit: [Publish your Nerdpack](https://docs.newrelic.com/docs/new-relic-solutions/new-relic-one/build-nr-apps/publish/)
+
+## License
+
+The SLI Workload Visualisation is licensed under the Apache License, Version 2.0. See LICENSE for a copy of the license. For older agent versions, check the LICENSE file included with the source code.
