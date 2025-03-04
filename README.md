@@ -2,7 +2,7 @@
 
 This vizualisation displays SLI data for the last X days for a given entity. (with multiple entities support)
 
-<img width="1500" alt="Image" src="https://github.com/user-attachments/assets/08e11f9c-6423-4bc6-878b-fed0edd490ab" />
+<img width="1461" alt="Image" src="https://github.com/user-attachments/assets/81b48548-a228-47b1-a008-a210efc951a2" />
 
 #### Configuration
 
